@@ -132,7 +132,7 @@
       btn.textContent = 'Signing in...';
       btn.disabled = true;
       sessionStorage.setItem('rexnord_user', JSON.stringify({ name: 'Test User', username: user, role: 'Employee', initials: 'TU' }));
-      setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
+      setTimeout(() => { window.location.href = 'dashboard/'; }, 600);
     } else {
       errEl.classList.add('show');
       document.getElementById('password').value = '';

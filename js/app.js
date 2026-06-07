@@ -1,8 +1,8 @@
 /* ===== INIT ===== */
 (function () {
-  // Auth guard
+  // Auth guard — redirect to login (one level up from /dashboard/)
   const user = JSON.parse(sessionStorage.getItem('rexnord_user') || 'null');
-  if (!user) { window.location.href = 'index.html'; return; }
+  if (!user) { window.location.href = '../'; return; }
 
   // Theme
   const savedTheme = localStorage.getItem('rexnord_theme') || 'light';
@@ -35,7 +35,15 @@
   });
   document.getElementById('askSubmitBtn').addEventListener('click', submitAsk);
 
-  // Close profile dropdown on outside click
+  // *** FIX: attach click handlers to all desktop nav links ***
+  document.querySelectorAll('.nav-link[data-section]').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      navigate(this.dataset.section);
+    });
+  });
+
+  // Close profile dropdown and apps dropdown on outside click
   document.addEventListener('click', function (e) {
     const dd = document.getElementById('profileDropdown');
     const btn = document.getElementById('profileBtn');
@@ -140,7 +148,7 @@ function closeDrawer() {
 /* ===== AUTH ===== */
 function logout() {
   sessionStorage.removeItem('rexnord_user');
-  window.location.href = 'index.html';
+  window.location.href = '../';
 }
 
 /* ===== HOLIDAY RENDERING — UPCOMING (Home card) ===== */
@@ -352,7 +360,7 @@ function shareViaEmail() {
 }
 
 function copyLink() {
-  const text = getShareMessage() + ' — ' + window.location.origin + '/dashboard.html';
+  const text = getShareMessage() + ' — ' + window.location.href;
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!'));
   } else {
