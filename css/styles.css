@@ -1510,14 +1510,6 @@ input, textarea { font-family: var(--font); }
 /* Quick link home card icons */
 .quick-link-icon .brand-icon { width: 20px; height: 20px; }
 
-/* ===== DAY NAME RESPONSIVE ===== */
-.day-short { display: none; }
-
-@media (max-width: 640px) {
-  .day-full  { display: none; }
-  .day-short { display: inline; }
-}
-
 /* ===== UTILITIES ===== */
 .hidden { display: none !important; }
 .text-accent { color: var(--accent); }
