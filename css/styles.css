@@ -1475,6 +1475,41 @@ input, textarea { font-family: var(--font); }
 .apps-menu-viewall:hover { text-decoration: underline; }
 .apps-menu-viewall svg { width: 12px; height: 12px; }
 
+/* ===== BRAND ICONS ===== */
+.brand-icon {
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* App grid icons (56px container → 30px icon) */
+.app-icon {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.app-icon .brand-icon { width: 30px; height: 30px; }
+.app-icon .custom-icon { width: 28px; height: 28px; }
+
+/* Nav dropdown mini icons (36px container → 20px icon) */
+.apps-menu-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.apps-menu-icon .brand-icon { width: 20px; height: 20px; }
+.apps-menu-icon .custom-icon { width: 18px; height: 18px; }
+
+/* Uber icon — needs dark bg always so white icon stays visible */
+.app-icon.uber-bg { background: #1C1C1C !important; }
+[data-theme="dark"] .app-icon.uber-bg { background: #2A2A2A !important; }
+
+/* Quick link home card icons */
+.quick-link-icon .brand-icon { width: 20px; height: 20px; }
+
 /* ===== DAY NAME RESPONSIVE ===== */
 .day-short { display: none; }
 
