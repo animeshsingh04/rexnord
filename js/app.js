@@ -63,6 +63,9 @@ function formatShortDate(dateStr) {
   return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
 }
 
+// "Monday" → "Mon", works for all English day names via first 3 chars
+function shortDay(fullDay) { return fullDay.slice(0, 3); }
+
 function getDayOfWeek(dateStr) {
   const d = new Date(dateStr);
   return d.toLocaleDateString('en-IN', { weekday: 'long' });
@@ -194,7 +197,7 @@ function renderUpcomingHolidays(filter) {
           <div class="holiday-date">${getDateNum(h.date)}</div>
           <div class="holiday-info">
             <div class="holiday-name">${h.name}</div>
-            <div class="holiday-day">${h.day}</div>
+            <div class="holiday-day"><span class="day-full">${h.day}</span><span class="day-short">${shortDay(h.day)}</span></div>
           </div>
           <span class="badge ${badgeClass}">${badgeLabel}</span>
         </div>`;
@@ -203,6 +206,7 @@ function renderUpcomingHolidays(filter) {
 
   container.innerHTML = html;
 }
+
 
 function filterHolidays(type, btn) {
   document.querySelectorAll('.holiday-tab[data-tab]').forEach(b => b.classList.remove('active'));
@@ -235,7 +239,7 @@ function renderHolidayTable(filter) {
       <tr style="${isPast ? 'opacity:0.45;' : ''}">
         <td style="color:var(--text-muted);font-size:12px;">${i + 1}</td>
         <td><strong>${formatShortDate(h.date)}</strong></td>
-        <td style="color:var(--text-secondary);">${h.day}</td>
+        <td style="color:var(--text-secondary);"><span class="day-full">${h.day}</span><span class="day-short">${shortDay(h.day)}</span></td>
         <td>${h.name}${isPast ? ' <span style="font-size:11px;color:var(--text-muted);">(passed)</span>' : ''}</td>
         <td><span class="badge ${badgeClass}">${badgeLabel}</span></td>
       </tr>`;

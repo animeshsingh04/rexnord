@@ -1475,6 +1475,14 @@ input, textarea { font-family: var(--font); }
 .apps-menu-viewall:hover { text-decoration: underline; }
 .apps-menu-viewall svg { width: 12px; height: 12px; }
 
+/* ===== DAY NAME RESPONSIVE ===== */
+.day-short { display: none; }
+
+@media (max-width: 640px) {
+  .day-full  { display: none; }
+  .day-short { display: inline; }
+}
+
 /* ===== UTILITIES ===== */
 .hidden { display: none !important; }
 .text-accent { color: var(--accent); }
