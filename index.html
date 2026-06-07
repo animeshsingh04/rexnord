@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Rexnord Employee Portal — Sign in to access your workspace">
+  <title>Sign In — Rexnord Portal</title>
+  <link rel="icon" href="assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .login-page { background: var(--bg); }
+  </style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle-login" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+  <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+</button>
+
+<div class="login-page">
+  <div class="login-card">
+
+    <!-- Logo -->
+    <div class="login-logo">
+      <img src="assets/logo.png" alt="Rexnord" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <div style="display:none;font-size:26px;font-weight:800;color:var(--accent);letter-spacing:-1px;">REXNORD</div>
+    </div>
+
+    <h1 class="login-title">Welcome back</h1>
+    <p class="login-subtitle">Sign in to access your employee portal</p>
+
+    <!-- Error Message -->
+    <div class="login-error" id="loginError">
+      Incorrect username or password. Please try again.
+    </div>
+
+    <form id="loginForm" autocomplete="on">
+      <div class="form-group">
+        <label class="form-label" for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-input"
+          placeholder="Enter your username"
+          autocomplete="username"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <div class="input-wrapper">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-input"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            style="padding-right: 42px;"
+            required
+          >
+          <button type="button" class="input-icon" id="togglePassword" aria-label="Show/hide password">
+            <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="login-btn" id="loginBtn">
+        Sign In
+      </button>
+    </form>
+
+    <div class="login-divider">
+      Rexnord Employee Portal &nbsp;·&nbsp; Secure Access
+    </div>
+  </div>
+</div>
+
+<script>
+  // Theme persistence
+  const saved = localStorage.getItem('rexnord_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateThemeIcon(saved);
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('rexnord_theme', next);
+    updateThemeIcon(next);
+  });
+
+  function updateThemeIcon(theme) {
+    const icon = document.getElementById('themeIcon');
+    if (theme === 'dark') {
+      icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+    } else {
+      icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+    }
+  }
+
+  // Password toggle
+  const pwInput = document.getElementById('password');
+  document.getElementById('togglePassword').addEventListener('click', () => {
+    const visible = pwInput.type === 'text';
+    pwInput.type = visible ? 'password' : 'text';
+    document.getElementById('eyeIcon').innerHTML = visible
+      ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
+      : '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  });
+
+  // Login
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value;
+    const errEl = document.getElementById('loginError');
+    const btn = document.getElementById('loginBtn');
+
+    errEl.classList.remove('show');
+
+    if (user === 'test' && pass === 'test@123') {
+      btn.textContent = 'Signing in...';
+      btn.disabled = true;
+      sessionStorage.setItem('rexnord_user', JSON.stringify({ name: 'Test User', username: user, role: 'Employee', initials: 'TU' }));
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
+    } else {
+      errEl.classList.add('show');
+      document.getElementById('password').value = '';
+      document.getElementById('password').focus();
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+design_mock_reference/
+*.psd
+*.sketch
+Thumbs.db
+.DS_Store
